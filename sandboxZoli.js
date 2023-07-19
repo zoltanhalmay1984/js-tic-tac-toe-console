@@ -44,21 +44,55 @@ function getCoordinates() {
     }
 }
 
+function displayTurn(turn) {
+    if (turn % 2) return "turn of player 1"
+    else return "turn of player 2 "
+}
+
+
 function implementMove(board, playerCoords) {
-    if (turn%2){
+    if ((board[playerCoords[0]][(playerCoords[1])] === ".") &&
+        (turn % 2)) {
         board[playerCoords[0]][(playerCoords[1])] = "X";
     }
-    else{
+    else if ((board[playerCoords[0]][(playerCoords[1])] === ".") &&
+        (!(turn % 2))) {
         board[playerCoords[0]][(playerCoords[1])] = "O";
+    }
+}
+
+function getWinningPlayer(board) {
+    if (((board[0][0] && board[0][1] && board[0][2]) === "X") ||
+        ((board[1][0] && board[1][1] && board[1][2]) === "X") ||
+        ((board[2][0] && board[2][1] && board[2][2]) === "X") ||
+        ((board[0][0] && board[1][0] && board[2][0]) === "X") ||
+        ((board[0][1] && board[1][1] && board[2][1]) === "X") ||
+        ((board[0][2] && board[1][2] && board[2][2]) === "X") ||
+        ((board[0][0] && board[1][1] && board[2][2]) === "X") ||
+        ((board[0][2] && board[1][1] && board[2][0]) === "X")) {
+        console.log("you won, player 1!!");
+
+    }
+    if (((board[0][0] && board[0][1] && board[0][2]) === "O") ||
+        ((board[1][0] && board[1][1] && board[1][2]) === "O") ||
+        ((board[2][0] && board[2][1] && board[2][2]) === "O") ||
+        ((board[0][0] && board[1][0] && board[2][0]) === "O") ||
+        ((board[0][1] && board[1][1] && board[2][1]) === "O") ||
+        ((board[0][2] && board[1][2] && board[2][2]) === "O") ||
+        ((board[0][0] && board[1][1] && board[2][2]) === "O") ||
+        ((board[0][2] && board[1][1] && board[2][0]) === "O")) {
+        console.log("you won, player 2!!")
     }
 }
 
 let turn = 1
 let board = getEmptyBoard()
 do {
+    console.log(displayTurn(turn))
     let playerCoords = getCoordinates()
     implementMove(board, playerCoords)
     console.log(board)
-    console.log(turn)
+    //console.log(turn)
+    getWinningPlayer(board)
     turn++
 } while (true)
