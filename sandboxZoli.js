@@ -29,7 +29,7 @@ function introScreen() {
 
 function gameMenu() {
     gameMenuScreen()
-    let gameMode = (prompt('Type A or B, then press enter: '));
+    let gameMode = (prompt('Type A or B, then press ENTER: '));
     switch (gameMode.toUpperCase()) {
         case "A":
             vsAi = false
@@ -68,8 +68,7 @@ function gameMenu() {
 }
 
 function displayBoard(board, turn) {
-    //console.clear()
-    console.log(aiCoords)
+    console.clear()
     console.log("              ,---------------------------,")
     console.log("              |  /---------------------\\  |")
     console.log("              | |       1   2   3       | |")
@@ -126,7 +125,7 @@ function goodByeScreen() {
 
 function getPlayerCoordinates() {
     if (!(vsAi) || ((vsAi) && (turn % 2))) {
-        const playerInput = (prompt('Type your coordinates, then press enter: '));
+        const playerInput = (prompt('Type your coordinates, then press ENTER: '));
         switch (playerInput.toUpperCase()) {
             case "QUIT":
                 goodByeScreen()
@@ -157,9 +156,10 @@ function getPlayerCoordinates() {
 function getAiCoordinates() {
     if ((vsAi) && (!(turn % 2))) {
         let emptyCells = []
-        for (let i = 0; i < board.flat(); i++) {
-            if (board.flat()[i] === " ") {
-                emptyCells.push(i + 1)
+        let flattenedBoard = board.flat()
+        for (let i = 0; i < flattenedBoard; i++) {
+            if (flattenedBoard[i] === " ") {
+                emptyCells.push(i+1)
             }
         }
         const aiRandomChoice = Math.floor(Math.random() * emptyCells.length);
@@ -186,12 +186,6 @@ function getAiCoordinates() {
     }
 }
 
-
-
-// for (let i = 0; i < board.length; i++) {
-//     for (let j = 0; j < board[i].length; j++) {
-//         if (board[i][j] === " ") {
-//             emptyCoords.push(board[i][j])
 
 
 
@@ -323,10 +317,9 @@ function tieScreen(board, turn) {
 introScreen()
 let vsAi = false
 let isGameOver = false
-let turn = 1
-let aiCoords = []
+let turn = 0
 let board = getEmptyBoard()
-prompt('Press any key to continue.')
+prompt('Press ENTER to continue.')
 gameMenu()
 do {
     displayBoard(board, turn)
