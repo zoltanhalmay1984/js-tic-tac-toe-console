@@ -7,12 +7,70 @@ const prompt = ps({ sigint: true });
 const playerName = (prompt('Type your name, then press enter: ')).toUpperCase();
 console.log(playerName)
 */
+function introScreen(){
+    console.log("              ,---------------------------,")
+    console.log("              |  /---------------------\\  |")
+    console.log("              | | ..................... | |")
+    console.log("              | | X---TIC--TAC--TOE---O | |")
+    console.log("              | | ..................... | |")
+    console.log("              | |   a terminal game by  | |")
+    console.log("              | |    Zoli and Krisz     | |")
+    console.log("              |  \\______________________/ |")
+    console.log("              |___________________________|")
+    console.log("            ,---\\_____     []     _______/------,")
+    console.log("          /         /______________\\           /|")
+    console.log("        /___________________________________ /  | ___")
+    console.log("        |                                   |   |    )")
+    console.log("        |  _ _ _                 [-------]  |   |   (")
+    console.log("        |  o o o                 [-------]  |  /    _)_")
+    console.log("        |__________________________________ |/     ////")
+    console.log("    /-------------------------------------/|      /__/")
+    console.log("  /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /")
+    console.log("/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /")
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+}
 
+// function introScreen(){
+// console.log("XOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOX")
+// console.log("OXOXOXOXOXO                                                                       XOXOXOXOXOX")
+// console.log("XOXOXOXOXOX     XOXOX   O   XOXOX     OXOXO XOXOX OXOXO     XOXOX OXOXO XOXOX     OXOXOXOXOXO")
+// console.log("OXOXOXOXOXO       O     X   O           X   O   O X           O   X   X O         XOXOXOXOXOX")
+// console.log("XOXOXOXOXOX       X     O   X           O   XOXOX O           X   O   O XOX       OXOXOXOXOXO")
+// console.log("OXOXOXOXOXO       O     X   O           X   O   O X           O   X   X O         XOXOXOXOXOX")
+// console.log("XOXOXOXOXOX       X     O   XOXOX       O   X   X OXOXO       X   OXOXO XOXOX     OXOXOXOXOXO")
+// console.log("OXOXOXOXOXO                                                                       XOXOXOXOXOX")
+// console.log("XOXOXOXOXOX                  A terminal game by ZOLI and KRISZ                    OXOXOXOXOXO")
+// console.log("OXOXOXOXOXO                                                                       XOXOXOXOXOX")
+// console.log("XOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXXOXOXO")
+// }
+
+function displayBoard2(board, turn){
+console.log("              ,---------------------------,")
+console.log("              |  /---------------------\\  |")
+console.log("              | |       1   2   3       | |")
+console.log("              | |  A  | " + board[0][0] + " | " + board[0][1] + " | " + board[0][2] + " |     | |")
+console.log("              | |  B  | " + board[1][0] + " | " + board[1][1] + " | " + board[1][2] + " |     | |")
+console.log("              | |  C  | " + board[2][0] + " | " + board[2][1] + " | " + board[2][2] + " |     | |")
+console.log("              | |                       | |")
+console.log("              |  \\______________________/ |")
+console.log("              |___________________________|")
+console.log("            ,---\\_____     []     _______/------,")
+console.log("          /         /______________\\           /|")
+console.log("        /___________________________________ /  | ___")
+console.log("        |                                   |   |    )")
+console.log("        |  _ _ _                 [-------]  |   |   (")
+console.log("        |  o o o                 [-------]  |  /    _)_")
+console.log("        |__________________________________ |/     ////")
+console.log("    /-------------------------------------/|      /__/")
+console.log("  /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /")
+console.log("/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /")
+console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+}
 function getEmptyBoard() {
     return [
-        [".", ".", "."],
-        [".", ".", "."],
-        [".", ".", "."]
+        [" ", " ", " "],
+        [" ", " ", " "],
+        [" ", " ", " "]
     ];
 }
 
@@ -45,54 +103,83 @@ function getCoordinates() {
 }
 
 function displayTurn(turn) {
-    if (turn % 2) return "turn of player 1"
-    else return "turn of player 2 "
+    if (turn % 2) return "TURN OF P1"
+    else return "TURN OF P2 "
 }
 
+function displayBoard(board){
+    console.log("\n")
+    console.log("        1   2   3")
+    console.log("      -------------")
+    console.log("   A  | " + board[0][0] + " | " + board[0][1] + " | " + board[0][2] + " |")
+    console.log("      -------------")
+    console.log("   B  | " + board[1][0] + " | " + board[1][1] + " | " + board[1][2] + " |")
+    console.log("      -------------")
+    console.log("   C  | " + board[2][0] + " | " + board[2][1] + " | " + board[2][2] + " |")
+    console.log("      -------------")
+    console.log("\n")
+}
 
 function implementMove(board, playerCoords) {
-    if ((board[playerCoords[0]][(playerCoords[1])] === ".") &&
+    if ((board[playerCoords[0]][(playerCoords[1])] === " ") &&
         (turn % 2)) {
         board[playerCoords[0]][(playerCoords[1])] = "X";
     }
-    else if ((board[playerCoords[0]][(playerCoords[1])] === ".") &&
+    else if ((board[playerCoords[0]][(playerCoords[1])] === " ") &&
         (!(turn % 2))) {
         board[playerCoords[0]][(playerCoords[1])] = "O";
     }
 }
 
 function getWinningPlayer(board) {
-    if (((board[0][0] && board[0][1] && board[0][2]) === "X") ||
-        ((board[1][0] && board[1][1] && board[1][2]) === "X") ||
-        ((board[2][0] && board[2][1] && board[2][2]) === "X") ||
-        ((board[0][0] && board[1][0] && board[2][0]) === "X") ||
-        ((board[0][1] && board[1][1] && board[2][1]) === "X") ||
-        ((board[0][2] && board[1][2] && board[2][2]) === "X") ||
-        ((board[0][0] && board[1][1] && board[2][2]) === "X") ||
-        ((board[0][2] && board[1][1] && board[2][0]) === "X")) {
+    if (
+        (board[0][0] === "X" && board[0][1] === "X" && board[0][2] === "X") ||
+        (board[1][0] === "X" && board[1][1] === "X" && board[1][2] === "X") ||
+        (board[2][0] === "X" && board[2][1] === "X" && board[2][2] === "X") ||
+        (board[0][0] === "X" && board[1][0] === "X" && board[2][0] === "X") ||
+        (board[0][1] === "X" && board[1][1] === "X" && board[2][1] === "X") ||
+        (board[0][2] === "X" && board[1][2] === "X" && board[2][2] === "X") ||
+        (board[0][0] === "X" && board[1][1] === "X" && board[2][2] === "X") ||
+        (board[2][0] === "X" && board[1][1] === "X" && board[0][2] === "X")) {
         console.log("you won, player 1!!");
-
     }
-    if (((board[0][0] && board[0][1] && board[0][2]) === "O") ||
-        ((board[1][0] && board[1][1] && board[1][2]) === "O") ||
-        ((board[2][0] && board[2][1] && board[2][2]) === "O") ||
-        ((board[0][0] && board[1][0] && board[2][0]) === "O") ||
-        ((board[0][1] && board[1][1] && board[2][1]) === "O") ||
-        ((board[0][2] && board[1][2] && board[2][2]) === "O") ||
-        ((board[0][0] && board[1][1] && board[2][2]) === "O") ||
-        ((board[0][2] && board[1][1] && board[2][0]) === "O")) {
-        console.log("you won, player 2!!")
+    else if (
+        (board[0][0] === "O" && board[0][1] === "O" && board[0][2] === "O") ||
+        (board[1][0] === "O" && board[1][1] === "O" && board[1][2] === "O") ||
+        (board[2][0] === "O" && board[2][1] === "O" && board[2][2] === "O") ||
+        (board[0][0] === "O" && board[1][0] === "O" && board[2][0] === "O") ||
+        (board[0][1] === "O" && board[1][1] === "O" && board[2][1] === "O") ||
+        (board[0][2] === "O" && board[1][2] === "O" && board[2][2] === "O") ||
+        (board[0][0] === "O" && board[1][1] === "O" && board[2][2] === "O") ||
+        (board[2][0] === "O" && board[1][1] === "O" && board[0][2] === "O")) {
+        console.log("you won, player 2!!");
     }
 }
 
+function isBoardFull (board) {
+    if (!(board.flat().includes(" "))){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+console.log("\n\n")
+introScreen()
 let turn = 1
 let board = getEmptyBoard()
 do {
+    console.log("\n\n")
     console.log(displayTurn(turn))
     let playerCoords = getCoordinates()
     implementMove(board, playerCoords)
-    console.log(board)
-    //console.log(turn)
+    displayBoard(board)
+    // console.log(board[0])
+    // console.log(board[1])
+    // console.log(board[2])
     getWinningPlayer(board)
+    console.log("the board is full: " + isBoardFull(board))
     turn++
 } while (true)
