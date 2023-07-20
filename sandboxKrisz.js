@@ -2,6 +2,52 @@ const ps = require('prompt-sync');
 
 const prompt = ps({ sigint: true });
 
+function introScreen(){
+    console.log("              ,---------------------------,")
+    console.log("              |  /---------------------\\  |")
+    console.log("              | | ..................... | |")
+    console.log("              | | X---TIC--TAC--TOE---O | |")
+    console.log("              | | ..................... | |")
+    console.log("              | |   a terminal game by  | |")
+    console.log("              | |    Zoli and Krisz     | |")
+    console.log("              |  \\______________________/ |")
+    console.log("              |___________________________|")
+    console.log("            ,---\\_____     []     _______/------,")
+    console.log("          /         /______________\\           /|")
+    console.log("        /___________________________________ /  | ___")
+    console.log("        |                                   |   |    )")
+    console.log("        |  _ _ _                 [-------]  |   |   (")
+    console.log("        |  o o o                 [-------]  |  /    _)_")
+    console.log("        |__________________________________ |/     ////")
+    console.log("    /-------------------------------------/|      /__/")
+    console.log("  /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /")
+    console.log("/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /")
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+}
+
+function displayBoard2(board, turn){
+    console.log("              ,---------------------------,")
+    console.log("              |  /---------------------\\  |")
+    console.log("              | |       1   2   3       | |")
+    console.log("              | |  A  | " + board[0][0] + " | " + board[0][1] + " | " + board[0][2] + " |     | |")
+    console.log("              | |  B  | " + board[1][0] + " | " + board[1][1] + " | " + board[1][2] + " |     | |")
+    console.log("              | |  C  | " + board[2][0] + " | " + board[2][1] + " | " + board[2][2] + " |     | |")
+    console.log("              | |                       | |")
+    console.log("              |  \\______________________/ |")
+    console.log("              |___________________________|")
+    console.log("            ,---\\_____     []     _______/------,")
+    console.log("          /         /______________\\           /|")
+    console.log("        /___________________________________ /  | ___")
+    console.log("        |                                   |   |    )")
+    console.log("        |  _ _ _                 [-------]  |   |   (")
+    console.log("        |  o o o                 [-------]  |  /    _)_")
+    console.log("        |__________________________________ |/     ////")
+    console.log("    /-------------------------------------/|      /__/")
+    console.log("  /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /")
+    console.log("/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /")
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    }
+
 function getEmptyBoard() {
     return [
       [".", ".", "."],
@@ -12,8 +58,7 @@ function getEmptyBoard() {
   
   function getCoordinates() {
     const validInputs = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3", "QUIT"];
-    while (true) {
-      const playerInput = prompt('Type your coordinates, then press enter: ');
+    while (true) {('Type your coordinates, then press enter: ');
       const upperCaseInput = playerInput.toUpperCase();
       if (validInputs.includes(upperCaseInput)) {
         if (upperCaseInput === "QUIT") {
@@ -84,17 +129,6 @@ function getEmptyBoard() {
     }
   
     return null; // No winner
-  }
-  
-  function displayBoard(board) {
-    console.log("    1   2   3");
-    console.log("  -------------");
-    console.log(`A | ${board[0][0]} | ${board[0][1]} | ${board[0][2]} |`);
-    console.log("  -------------");
-    console.log(`B | ${board[1][0]} | ${board[1][1]} | ${board[1][2]} |`);
-    console.log("  -------------");
-    console.log(`C | ${board[2][0]} | ${board[2][1]} | ${board[2][2]} |`);
-    console.log("  -------------");
   }
   
   function generateRandomCoordinates(board) {
@@ -182,6 +216,8 @@ function getEmptyBoard() {
     }
   }
   
+  console.log("\n\n")
+  introScreen()
   let turn = 1;
   let board = getEmptyBoard();
   let winner = null;
@@ -209,7 +245,7 @@ function getEmptyBoard() {
   
   do {
     console.log(displayTurn(turn));
-    displayBoard(board);
+    displayBoard2(board);
   
     if (againstAI && turn % 2 === 0) {
       console.log("AI's turn");
@@ -230,7 +266,7 @@ function getEmptyBoard() {
   
     if (winner) {
       console.log(displayTurn(turn - 1));
-      displayBoard(board);
+      displayBoard2(board);
       if (againstAI && aiLevel === 1 && winner === "O") {
         console.log("Congratulations! You win!");
       } else if (againstAI && aiLevel === 2 && winner === "O") {
@@ -243,20 +279,8 @@ function getEmptyBoard() {
   
     if (turn > 9) {
       console.log(displayTurn(turn - 1));
-      displayBoard(board);
+      displayBoard2(board);
       console.log("It's a tie!");
       break;
     }
   } while (true);
-  
-  //Updates:
-
-  //Added a generateRandomCoordinates() function to generate random valid coordinates for the AI opponent's move.
-//Modified the game loop to include the option to play against an AI opponent. The player can choose between Player vs Player, Player vs AI (Easy), and Player vs AI (Unbeatable) modes.
-//Created a getUnbeatableMove() function that implements a simplified version of the Minimax algorithm to make the AI opponent unbeatable in the Player vs AI (Unbeatable) mode.
-//Added an aiLevel variable to keep track of the AI opponent's difficulty level (1 for easy, 2 for unbeatable).
-//Adjusted the game loop to use the aiLevel variable to determine the AI opponent's moves.
-//Modified the game loop to display different victory messages depending on the AI's difficulty level in the Player vs AI mode.
-//Updated the displayBoard() function to format the game board with row and column labels.
-//Added an additional option to allow the player to type "quit" at any time to exit the game.
-//Included a welcome message at the start of the game to inform the player about the available game modes.
